@@ -1,0 +1,1 @@
+export { InvestmentTable } from './InvestmentTable'

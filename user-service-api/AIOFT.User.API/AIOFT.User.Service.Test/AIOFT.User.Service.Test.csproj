@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MockQueryable.Moq" Version="5.0.0" />
+    <PackageReference Include="Moq" Version="4.16.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIOFT.User.API\AIOFT.User.API.csproj" />
+    <ProjectReference Include="..\AIOFT.User.Data\AIOFT.User.Data.csproj" />
+    <ProjectReference Include="..\AIOFT.User.DTO\AIOFT.User.DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AIOFT.User.Data">
+      <HintPath>..\AIOFT.User.Service\bin\Debug\netcoreapp3.1\AIOFT.User.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="AIOFT.User.DTO">
+      <HintPath>..\AIOFT.User.Service\bin\Debug\netcoreapp3.1\AIOFT.User.DTO.dll</HintPath>
+    </Reference>
+    <Reference Include="AIOFT.User.Service">
+      <HintPath>..\AIOFT.User.Service\bin\Debug\netcoreapp3.1\AIOFT.User.Service.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appSettings.Test.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

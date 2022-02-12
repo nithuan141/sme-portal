@@ -1,0 +1,6 @@
+export { DashBoard } from './DashBoard'
+export { default as LoginPage} from './LoginPage'
+export { UserPage } from './UserPage'
+export { CoursePage } from './CoursePage'
+export { InvetsmentPage } from './InvestmentPage'
+export { ProfitPage } from './ProfitPage'

@@ -1,0 +1,31 @@
+.smeTable {
+    border-radius: 4px;
+}
+
+.smeTable tr {
+    min-height: 50px;
+}
+
+.smeTable td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+}
+
+.smeTable th{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    background-color: #84ae84 ;
+    color: #fff;
+    border: 0;
+}
+
+.pagerSpan{
+    padding: 15px;
+}
+
+.activeMenu {
+    color: #000;
+    font-weight: bold;
+}
