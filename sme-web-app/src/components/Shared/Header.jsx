@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { getLoggedInUser } from "../../services/user.service";
 
 export const Header = () => {
     const [showUserInfo, setShowUserInfo] = useState()
     const [scroll, setScroll] = useState(false);
+    const currentUser = getLoggedInUser()
     const history = useHistory()
 
     useEffect(() => {
@@ -24,7 +26,7 @@ export const Header = () => {
             <div className="header__menu" onClick={e => setShowUserInfo(!showUserInfo)}>
                 <div className="dropdown">
                     <button className="" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span>Username</span>
+                        <span>{currentUser.name}</span>
                         {/* <img src="images/profile.png" alt="" /> */}
                     </button>
                     <ul className={`dropdown-menu${showUserInfo ? ' show' : ''}`} aria-labelledby="dropdownMenuButton1">
