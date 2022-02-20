@@ -1,27 +1,29 @@
 import React, { useContext } from 'react'
 import { CourseContext } from '../../contexts/Course.Context'
+import { CommentsContextProvider } from '../../contexts/Comments.Context'
+import { UsersContextProvider } from "../../contexts/User.Context"
 import { Comments } from './Comments'
 import ThumbNail from '../../public/images/video-thumbnail.jpg'
 
 export const CourseDetail = () => {
-    const {selectedCourse, selectCourse} = useContext(CourseContext)
-    const thumbNail = selectedCourse?.thumbanilURL?.includes('https://') ?  selectedCourse.thumbNailURL : ThumbNail
-    const duration = ` ${Math.floor(selectedCourse?.durationMinutes/60)} h ${parseInt(selectedCourse?.durationMinutes%60)} m`
-    const {descriptions, tags, title} = selectedCourse
+  const { selectedCourse, selectCourse } = useContext(CourseContext)
+  const thumbNail = selectedCourse?.thumbanilURL?.includes('https://') ? selectedCourse.thumbNailURL : ThumbNail
+  const duration = ` ${Math.floor(selectedCourse?.durationMinutes / 60)} h ${parseInt(selectedCourse?.durationMinutes % 60)} m`
+  const { descriptions, tags, title } = selectedCourse
 
-    return <div className="content-wrapper course-details mt-4">
+  return <div className="content-wrapper course-details mt-4">
     <div className="course-details__head">
       <div className="d-flex align-items-sm-center">
-        <a href="#" aria-label="Back" onClick={e=>{
-            e.preventDefault();
-            selectCourse(undefined);
+        <a href="#" aria-label="Back" onClick={e => {
+          e.preventDefault();
+          selectCourse(undefined);
         }}>
           <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 1L1 10L10 19" stroke="#8A9BA8" />
           </svg>
         </a>
         <h1 className="course-details__title ms-3 mb-0 pe-4">
-         {title}
+          {title}
         </h1>
       </div>
       <div className="time mt-sm-0 mt-3">
@@ -36,14 +38,18 @@ export const CourseDetail = () => {
     </div>
 
     <div className="course-details__video-wrapper">
-      <img src="images/video.jpg" className="w-100" alt="" />
+      <img src={thumbNail} className="w-100" alt="" />
     </div>
 
     <div className="w-100 mb-4">
-    {tags?.split(',').map(item =>  <span className="tag tag--green" key={item}>{item}</span>)}
+      {tags?.split(',').map(item => <span className="tag tag--green" key={item}>{item}</span>)}
     </div>
 
     <p>{descriptions}</p>
-    <Comments />
+    <CommentsContextProvider courseId={selectedCourse.id}>
+      <UsersContextProvider>
+        <Comments />
+      </UsersContextProvider>
+    </CommentsContextProvider>
   </div>
 }
