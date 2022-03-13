@@ -1,15 +1,52 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { CourseContext } from '../../contexts/Course.Context'
 import { CommentsContextProvider } from '../../contexts/Comments.Context'
 import { UsersContextProvider } from "../../contexts/User.Context"
+import { getLoggedInUser } from "../../services/user.service";
 import { Comments } from './Comments'
 import ThumbNail from '../../public/images/video-thumbnail.jpg'
 
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 export const CourseDetail = () => {
-  const { selectedCourse, selectCourse } = useContext(CourseContext)
+  const videoRef = useRef(null);
+  const currentUser = getLoggedInUser();
+  const { selectedCourse, selectCourse, setCourseHistory } = useContext(CourseContext)
   const thumbNail = selectedCourse?.thumbanilURL?.includes('https://') ? selectedCourse.thumbNailURL : ThumbNail
+  const couseVideo = selectedCourse?.videoURL
   const duration = ` ${Math.floor(selectedCourse?.durationMinutes / 60)} h ${parseInt(selectedCourse?.durationMinutes % 60)} m`
   const { descriptions, tags, title } = selectedCourse
+  let currentTime = videoRef.current?.currentTime;
+  const prevCurrentTime = usePrevious(videoRef.current?.currentTime);
+
+  useEffect(() => {
+    if (selectedCourse) {
+      currentTime = selectedCourse.playedDurationMinutes ? selectedCourse.playedDurationMinutes * 60 : 0
+    }
+    return () => {
+      // if (videoRef.current == null
+      //   && prevCurrentTime !== currentTime
+      //   && prevCurrentTime !== null) {
+      //   console.log(prevCurrentTime)
+        
+      // }
+      if (videoRef) {
+        console.log(videoRef.current?.currentTime) // videoRef.current == null && prevCurrentTime !== videoRef.current?.currentTime && videoRef.current?.currentTime
+        const courseDetails = {
+          courseId: selectedCourse.id,
+          userId: currentUser.id,
+          playedDurationMinutes: currentTime
+        }
+        //  setCourseHistory(courseDetails) -- currently always set as 0
+      }
+    }
+  }, [])
 
   return <div className="content-wrapper course-details mt-4">
     <div className="course-details__head">
@@ -37,11 +74,19 @@ export const CourseDetail = () => {
       </div>
     </div>
 
-    <div className="course-details__video-wrapper">
-      <img src={thumbNail} className="w-100" alt="" />
-    </div>
+    <video
+      preload="metadata"
+      ref={videoRef}
+      className="course-details__video-wrapper"
+      poster={thumbNail}
+      controls
+      controlsList='nodownload'
+      // src={couseVideo+"#t=0.1"} type="video/mp4" > - to add thumbnail else use poster
+      src={couseVideo} type="video/mp4" >
+      Sorry, your browser doesn't support embedded videos.
+    </video>
 
-    <div className="w-100 mb-4">
+    <div className="w-100 mb-4" onClick={() => { console.log(videoRef) }}>
       {tags?.split(',').map(item => <span className="tag tag--green" key={item}>{item}</span>)}
     </div>
 
