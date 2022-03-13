@@ -6,13 +6,13 @@ import { getLoggedInUser } from "../../services/user.service";
 import { Comments } from './Comments'
 import ThumbNail from '../../public/images/video-thumbnail.jpg'
 
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
+// function usePrevious(value) {
+//   const ref = useRef();
+//   useEffect(() => {
+//     ref.current = value;
+//   });
+//   return ref.current;
+// }
 
 export const CourseDetail = () => {
   const videoRef = useRef(null);
@@ -23,7 +23,7 @@ export const CourseDetail = () => {
   const duration = ` ${Math.floor(selectedCourse?.durationMinutes / 60)} h ${parseInt(selectedCourse?.durationMinutes % 60)} m`
   const { descriptions, tags, title } = selectedCourse
   let currentTime = videoRef.current?.currentTime;
-  const prevCurrentTime = usePrevious(videoRef.current?.currentTime);
+  // const prevCurrentTime = usePrevious(videoRef.current?.currentTime);
 
   useEffect(() => {
     if (selectedCourse) {
@@ -37,7 +37,7 @@ export const CourseDetail = () => {
         
       // }
       if (videoRef) {
-        console.log(videoRef.current?.currentTime) // videoRef.current == null && prevCurrentTime !== videoRef.current?.currentTime && videoRef.current?.currentTime
+        console.log(videoRef.current?.currentTime)
         const courseDetails = {
           courseId: selectedCourse.id,
           userId: currentUser.id,
@@ -86,7 +86,7 @@ export const CourseDetail = () => {
       Sorry, your browser doesn't support embedded videos.
     </video>
 
-    <div className="w-100 mb-4" onClick={() => { console.log(videoRef) }}>
+    <div className="w-100 mb-4" >
       {tags?.split(',').map(item => <span className="tag tag--green" key={item}>{item}</span>)}
     </div>
 
