@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAllCourse } from '../services/course.service';
+import { getAllCourse, updateCourseHistory } from '../services/course.service';
 
 export const CourseContext = React.createContext({courses: []})
 
@@ -17,7 +17,11 @@ export const CourseContextProvider = (props) => {
         })
     }
 
-    return <CourseContext.Provider value={{courses: courses, fetchCourse, selectedCourse, selectCourse}}>
+    const setCourseHistory = (courseDetails) => {
+        updateCourseHistory(courseDetails)
+    }
+
+    return <CourseContext.Provider value={{courses: courses, fetchCourse, selectedCourse, selectCourse, setCourseHistory}}>
         {props.children}
     </CourseContext.Provider>
 }

@@ -161,9 +161,9 @@ export const Comments = () => {
     const comment = props.comment;
     const commentChildren = comment.children
     const commnentedByUser = users && users.find((user) => user.id == comment.userId);
-    const commentedByUserName = commnentedByUser.name;
+    const commentedByUserName = commnentedByUser && commnentedByUser.name;
     const commentedOn = isoFormatDMY(parseISOString(comment.createdDate));
-    const userIcon = commentedByUserName.split(" ")
+    const userIcon = commentedByUserName?.split(" ")
       .map((name) => name.split("")[0])
       .join("");
     const isSelected = selectedComment && comment.id == selectedComment.id;
@@ -231,7 +231,7 @@ export const Comments = () => {
         </div>
         {commentChildren.length != 0 &&
           commentChildren.map((childComment) => (
-            <ShowComment comment={childComment} />
+            <ShowComment comment={childComment} key={comment.id}/>
           ))}
       </div>
     );
@@ -244,7 +244,7 @@ export const Comments = () => {
       {commentsTree &&
         commentsTree.map((comment) => (
           <div className="comments__messages" key={comment.id}>
-            <ShowComment comment={comment} />
+            <ShowComment comment={comment } />
           </div>
         ))}
     </div>
