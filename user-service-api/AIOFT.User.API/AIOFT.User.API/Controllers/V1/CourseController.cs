@@ -129,10 +129,12 @@ namespace AIOFT.User.API.Controllers.V1
             await using var newMemoryStream = new MemoryStream();
             file.CopyTo(newMemoryStream);
 
+            var fileName = file.FileName.Split('.')[0] + "-" + DateTime.Now.Ticks.ToString() + "." + file.FileName.Split('.')[1];
+
             var uploadRequest = new TransferUtilityUploadRequest
             {
                 InputStream = newMemoryStream,
-                Key = file.FileName + DateTime.Now.ToString(),
+                Key = fileName,
                 BucketName = bucket,
                 CannedACL = S3CannedACL.Private
             };
@@ -140,7 +142,7 @@ namespace AIOFT.User.API.Controllers.V1
             var fileTransferUtility = new TransferUtility(client);
             await fileTransferUtility.UploadAsync(uploadRequest);
 
-            return Ok(file.FileName);
+            return Ok(fileName);
         }
 
         private string GeneratePreSignedURL(string file)
