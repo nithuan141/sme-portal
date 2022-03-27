@@ -113,6 +113,7 @@ export const Comments = () => {
       createdBy: currentUser.id,
     };
     submitComment(comment);
+    setDescription('')
   };
 
   // Component for Add new Comment Box

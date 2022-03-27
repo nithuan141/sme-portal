@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 
-export const CourseForm = ({handleChange, course}) => {
-    const {title, descriptions,tags,videoURL,thumbanilURL,durationMinutes,isPublished} = course
+export const CourseForm = ({ handleChange, onFileUpload, onFileChange, course, uploadInProgress }) => {
+    const { title, descriptions, tags, videoURL, thumbanilURL, durationMinutes, isPublished } = course
     return <Form>
         <FormGroup>
             <Label for="title">Title</Label>
@@ -47,6 +47,14 @@ export const CourseForm = ({handleChange, course}) => {
                 value={videoURL}
                 onChange={handleChange}
             />
+            <div style={{ paddingTop: "8px" }}>
+                <input type="file" onChange={onFileChange} />
+                <Button primary onClick={(e) => {
+                    e.preventDefault()
+                    onFileUpload('videoURL')
+                }
+                }>{uploadInProgress ? 'Uploading....' : 'Upload'}</Button>
+            </div>
         </FormGroup>
         <FormGroup>
             <Label for="thumbanilURL">Thumbanil URL</Label>
@@ -58,8 +66,16 @@ export const CourseForm = ({handleChange, course}) => {
                 value={thumbanilURL}
                 onChange={handleChange}
             />
+            <div style={{ paddingTop: "8px" }}>
+                <input type="file" onChange={onFileChange} />
+                <Button primary onClick={(e) => {
+                    e.preventDefault()
+                    onFileUpload('thumbanilURL')
+                }
+                }>{uploadInProgress ? 'Uploading....' : 'Upload'}</Button>
+            </div>
         </FormGroup>
-        
+
         <FormGroup>
             <Label for="durationMinutes">Duration (Minutes)</Label>
             <Input

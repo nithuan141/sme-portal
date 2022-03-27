@@ -7,3 +7,7 @@ export const getAllCourse = () => {
 export const saveCourse = (course) => {
     return httpHelper.post('v1/Course', course)
 }
+
+export const uploadFile = (formData) => {
+    return httpHelper.post('v1/Course/upload', formData);
+}

@@ -2,13 +2,15 @@
 import axios from 'axios';
 import { setInterceptor } from './AxiosInterceptor'
 
+export const API_BASE_URL = "http://44.201.81.76:8081/api"
+
 class HttpHelper {
     // The axios instnace, new instance in the wrappe so that the default one using other areas will not have any impact.
     axiosInstance;
     constructor() {
         this.axiosInstance = axios.create();
         // TODO: move this to env variable
-        this.axiosInstance.defaults.baseURL = 'http://localhost:4200/api'
+        this.axiosInstance.defaults.baseURL = API_BASE_URL
         setInterceptor(this.axiosInstance);
     }
 

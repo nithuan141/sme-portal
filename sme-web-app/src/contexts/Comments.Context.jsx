@@ -25,8 +25,8 @@ export const CommentsContextProvider = (props) => {
     const submitComment = comment => {
         saveComment(comment).then(res => {
             setSelectedComment(res?.data)
+            setComments([...comments, res?.data])
         })
-        fetchComments()
     }
 
     return <CommentsContext.Provider value={{

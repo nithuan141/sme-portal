@@ -3,11 +3,13 @@ import { CourseContext } from '../../contexts/Course.Context'
 import { CourseTile } from './CourseTile'
 
 export const CourseList = () => {
-    const { courses, fetchCourse } = useContext(CourseContext) 
+    const { courses, loading } = useContext(CourseContext) 
     const[currentPage, setPage] = useState(1)
     const totalPages = Math.ceil(courses?.length / 9);
 
     return <div className="course-listing__lists">
+        {loading && <div className="row"><h4>{'We are fetching the courses for you, please wait ....'}</h4></div>}
+        {!loading && courses?.length === 0&&  <div className="row"><h4>{`Oops ! Sorry, we can't find any courses.`}</h4></div>}
         <div className="row">
             {
                 courses?.slice((currentPage-1) * 9 , (currentPage * 9))
