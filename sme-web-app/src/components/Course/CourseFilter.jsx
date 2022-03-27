@@ -1,18 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
+import { createRef } from 'react'
+import { useState } from 'react'
 import { CourseContext } from '../../contexts/Course.Context'
+import { useOutsideClicker } from '../Shared'
 
 export const CourseFilter = () => {
+    const[isFilterOpen, setFilterOpen] = useState(false)
+    const wrapperRef = useRef(null);
     const { uniqueCategories, searchText, setSearchText, filters, setFilters } = useContext(CourseContext)
 
     const onFilterSelect = (item, isSelected) => {
         const _data = isSelected ? [...filters, item.trim()] : filters.filter(x=>x!=item);
         setFilters(_data)
     }
+    useOutsideClicker(wrapperRef, () => { setFilterOpen(false) });
 
     return <div className="course-listing__filter">
 
         <div className="dropdown">
-            <button className="course-listing__filter-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+            <button className="course-listing__filter-btn" type="button" id="dropdownMenuButton2"
+                onClick={(e)=> setFilterOpen(true)}
+            data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0H24V24H0z" />
@@ -20,7 +28,7 @@ export const CourseFilter = () => {
                         fill="rgba(115,115,115,1)" />
                 </svg> Filter
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1" ref={wrapperRef} style={{display: isFilterOpen ? "block": ''}}>
                 <div className="course-listing__wrapper">
                     <div className="course-listing__search">
                         <input type="search" placeholder="Search" 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import dots from '../../public/images/dots.svg'
 import bg from '../../public/images/login-banner.png'
+import logo from '../../public/images/logo.svg'
 import { authenticate, setLoggedInUser } from '../../services/user.service'
 import { ADMIN_ROLE, INVESTOR_ROLE, USER_ROLE } from '../../utils/constants'
 
@@ -40,7 +41,7 @@ export const LoginForm = () => {
                 </span>
 
                 <div className="login__form">
-                    <img className="mb-4 d-sm-none d-block" src="images/logo.svg" alt="SME" />
+                    <img className="mb-4 d-sm-none d-block" src={logo} alt="SME" />
                     <h1 className="login__title">Login</h1>
                     <p>Username</p>
                     <input className="login__input" type="text" placeholder="Enter username" 

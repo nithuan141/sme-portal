@@ -5,7 +5,7 @@ import { CourseHeader } from './CourseHeader'
 import { CourseList } from './CourseList'
 import { CourseDetail } from './CourseDetail'
 
-export const Course = () => {
+export const Course = ({detail}) => {
     const { selectedCourse } = useContext(CourseContext)
     return <>{selectedCourse ?
         <CourseDetail />

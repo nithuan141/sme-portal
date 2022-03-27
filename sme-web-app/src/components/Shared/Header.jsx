@@ -30,7 +30,7 @@ export const Header = () => {
                         {/* <img src="images/profile.png" alt="" /> */}
                     </button>
                     <ul className={`dropdown-menu${showUserInfo ? ' show' : ''}`} aria-labelledby="dropdownMenuButton1">
-                        <li><a className="dropdown-item" href="#">Change password</a></li>
+                        {/* <li><a className="dropdown-item" href="#">Change password</a></li> */}
                         <li><a className="dropdown-item" href="#" onClick={e => {
                             e.preventDefault(); localStorage.clear(); history.push('/');
                         }}>Logout</a></li>
