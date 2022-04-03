@@ -32,6 +32,7 @@ export const CourseTable = () => {
      */
     useEffect(() => {
         if (!showCourseModal && isEditCourse) {
+            setSelectedCourse(null)
             // added delay to not show Add New Course while closing
             const timer = setTimeout(() => setIsEditCourse(false), 300);
             return () => clearTimeout(timer);
@@ -84,7 +85,15 @@ const CourseDetail = ({ item, index, handleViewEditButtonClick }) => {
         <td>{item.durationMinutes}</td>
         <td>{item.tags}</td>
         <td><Input type="checkbox" checked={item.isPublished} readOnly /></td>
-        <td><Button color="primary" onClick={onViewEditButtonClick} style={{ width: '100px', marginRight: '10px' }}>View/Edit</Button></td>
+        <td>
+            <Button 
+                color="primary"
+                onClick={onViewEditButtonClick}
+                style={{ width: '100px', marginRight: '10px' }}
+            >
+                View/Edit
+            </Button>
+        </td>
     </tr>
 }
 
