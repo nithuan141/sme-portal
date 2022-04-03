@@ -86,7 +86,8 @@ const CourseDetail = ({ item, index, handleViewEditButtonClick }) => {
         <td>{item.tags}</td>
         <td><Input type="checkbox" checked={item.isPublished} readOnly /></td>
         <td>
-            <Button 
+            <Button
+                outline
                 color="primary"
                 onClick={onViewEditButtonClick}
                 style={{ width: '100px', marginRight: '10px' }}

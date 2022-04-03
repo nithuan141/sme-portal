@@ -90,7 +90,8 @@ const UserDetail = ({ item, index, setSelectedUser, setInvestModal, setIsEditUse
         }}>Invest</Button>}</td>
         <td>
             <Button
-                outline color="primary"
+                outline
+                color="primary"
                 onClick={() => {
                     setSelectedUser(item)
                     setIsEditUser(true)
