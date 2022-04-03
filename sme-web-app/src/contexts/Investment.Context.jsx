@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getAllInvestment } from '../services/investment.service';
+import { getInvestment } from '../services/investment.service';
+import { getLoggedInUser } from '../services/user.service';
 
 export const InvestmentContext = React.createContext({investments: []})
 
@@ -11,7 +12,8 @@ export const InvestmentContextProvider = (props) => {
     }, [])
 
     const fetchInvestment = () => {
-        getAllInvestment().then(res => {
+        const user = getLoggedInUser()
+        user?.id && getInvestment(user.id).then(res => {
             setInvestment(res.data)
         })
     }
