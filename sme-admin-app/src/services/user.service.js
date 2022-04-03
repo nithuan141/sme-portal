@@ -19,3 +19,7 @@ export const getAllUsers = () => {
 export const saveUser = (user) => {
     return httpHelper.post('v1/User', user)
 }
+
+export const updateUser = (user) => {
+    return httpHelper.put('v1/User', user)
+}

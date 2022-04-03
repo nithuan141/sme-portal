@@ -1,10 +1,9 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { CourseForm } from './CourseForm'
-import { saveCourse, uploadFile } from '../../services/course.service'
+import { saveCourse, updateCourse, uploadFile } from '../../services/course.service'
 
-export const NewCourseModal = ({ toggle, isEdit, isOpen }) => {
+export const NewCourseModal = ({ toggle, isEdit, isOpen, selectedCourse }) => {
   const defaultCourse = {
     title: "",
     descriptions: "",
@@ -20,6 +19,25 @@ export const NewCourseModal = ({ toggle, isEdit, isOpen }) => {
   const [selectedFile, setSelectedFile] = useState()
   const [uploadInProgress, setuploadInProgress] = useState(false)
 
+  /**
+   * Update Course when View/Edit button is clicked.
+   */
+  useEffect(() => {
+    if (selectedCourse) {
+      setCourse(selectedCourse)
+    }
+  }, [selectedCourse])
+
+  /**
+   * Set default values when Toggle to close.
+   */
+  const toggleCourseModal = () => {
+    setCourse(defaultCourse)
+    setSaved(false)
+    setError(false)
+    toggle()
+  }
+
   const handleChange = (event) => {
     const { target } = event;
     let value = target.type === 'checkbox' ? target.checked : target.value;
@@ -29,11 +47,19 @@ export const NewCourseModal = ({ toggle, isEdit, isOpen }) => {
   };
 
   const onSave = () => {
-    saveCourse(course).then(res => {
-      if (res.status === 200 || res.status === 201) setSaved(true)
-    }).catch(err => {
-      setError(true)
-    })
+    if (!selectedCourse) {
+      saveCourse(course).then(res => {
+        if (res.status === 200 || res.status === 201) setSaved(true)
+      }).catch(err => {
+        setError(true)
+      })
+    } else {
+      updateCourse(course).then(res => {
+        if (res.status === 200 || res.status === 201) setSaved(true)
+      }).catch(err => {
+        setError(true)
+      })
+    }
   }
 
   const onFileUpload = (name) => {
@@ -45,7 +71,7 @@ export const NewCourseModal = ({ toggle, isEdit, isOpen }) => {
     uploadFile(formData).then(res => {
       setCourse({ ...course, [name]: res.data });
       setuploadInProgress(false)
-    }).catch(err=>{
+    }).catch(err => {
       alert('Upload failed, please try again!')
       setuploadInProgress(false)
     })
@@ -56,7 +82,7 @@ export const NewCourseModal = ({ toggle, isEdit, isOpen }) => {
   };
 
 
-  return <Modal toggle={toggle} isOpen={isOpen}>
+  return <Modal toggle={toggleCourseModal} isOpen={isOpen}>
     <ModalHeader>{isEdit ? 'Edit Course' : 'Add New Course'}</ModalHeader>
 
     <ModalBody>
@@ -72,7 +98,7 @@ export const NewCourseModal = ({ toggle, isEdit, isOpen }) => {
       <div>
         <Button color="primary" onClick={onSave}>Save Course</Button>{' '}
         <Button onClick={() => { setCourse(defaultCourse) }}>Clear Form</Button>{' '}
-        <Button onClick={toggle}>Close</Button>
+        <Button onClick={toggleCourseModal}>Close</Button>
       </div>
       <div>
         {saved && <Alert color='success'>Saved succesfully</Alert>}
