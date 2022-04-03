@@ -1,12 +1,14 @@
 import React from 'react'
 import { Container } from 'reactstrap'
+import { InvestmentTable } from '../components/Investment'
 import { Header } from '../components/Shared/Header'
+import { InvestmentContextProvider } from '../contexts/Investment.Context'
 
 export const DashBoard = () => {
-    return <>
-    <Header />
-    <Container>
-        Dashborad Here
-    </Container>
-    </>
+    return <InvestmentContextProvider>
+        <Header />
+        <Container>
+            <InvestmentTable isWithdrawn={true} />
+        </Container>
+    </InvestmentContextProvider>
 }

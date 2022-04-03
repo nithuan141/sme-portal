@@ -8,7 +8,7 @@ import { PaginationBar } from "../Shared/PaginationBar"
 import { PayProfitModal } from "./PayProfitModal"
 import { ShowConfirmationModal } from "./ShowConfirmationModal"
 
-export const InvestmentTable = () => {
+export const InvestmentTable = ({isWithdrawn = false}) => {
     const { investments, fetchInvestment } = useContext(InvestmentContext)
     const[currentPage, setPage] = useState(1)
     const[showPayProfitModal, setPayProfitModal] = useState(false)
@@ -27,12 +27,15 @@ export const InvestmentTable = () => {
     }
 
     return <>
-        <PageHeader title={'Investments'}  onSearch={onSearch} />
+       {isWithdrawn ? <h3>Deposit Withdrawn Requests</h3>
+       : <PageHeader title={'Investments'}  onSearch={onSearch} />}
+       
         <Row>
             <Table striped size="sm" bordered hover style={{marginTop: '10px'}} className="smeTable">
                 <InvestmentTableHead />
                 <tbody>
-                    {investments?.filter(x=> searchText === '' || x.investorName.includes(searchText))
+                    {investments?.filter(x=> (searchText === '' || x.investorName.includes(searchText)) 
+                                            && (!isWithdrawn || x.status === 1))
                     .slice((currentPage-1) * 10 , (currentPage * 10)).map((item, index) =>
                      <InvestmentDetail key={item.id} item={item} index={index+1 + ((currentPage-1) * 10)}
                         setSelectedInvestment={setSelectedInvestment} setPayProfitModal={setPayProfitModal}
