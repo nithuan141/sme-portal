@@ -106,13 +106,9 @@ export const getStatus = (status) => {
 export const getInvestmentType = (type) => {
     switch(type) {
         case 1:
-            return "SME Lease Financing"
+            return "Monthly"
         case 2:
-            return "Fixed Deposit"
-        case 3:
-            return "Recurring Deposit"
-        case 4:
-            return "Mutual Fund"
+            return "Compounding "
         default:
             return "N/A"
     }

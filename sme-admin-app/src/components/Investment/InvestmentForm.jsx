@@ -68,10 +68,8 @@ export const InvestmentForm = ({ handleChange, investment }) => {
                 value={invetsmentType}
                 onChange={handleChange}
             >
-                <option value={1}>SME Lease Financing</option>
-                <option value={2}>Fixed Deposit</option>
-                <option value={3}>Recurring Deposit</option>
-                <option value={4}>Mutual Fund</option>
+                <option value={1}>Monthly</option>
+                <option value={2}>Compounding </option>
             </Input>
         </FormGroup>
     </Form>

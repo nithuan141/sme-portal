@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { setInterceptor } from './AxiosInterceptor'
+import { toast } from 'react-toastify'
 
 export const API_BASE_URL = "http://44.201.81.76:8081/api"
 
@@ -98,12 +99,16 @@ class HttpHelper {
         } else if (err.response.status === 401 || err.response.status === 403) {
             throw err;
         } else {
-            if(err?.response?.data?.ErrorInfo) {
-                alert(err?.response?.data?.ErrorInfo)
+            if(err?.response?.data?.errors) {
+                Object.keys(err?.response?.data?.errors).map( k => {
+                    toast.error(err?.response?.data?.errors[k].join(' '))
+                })
+            } else if(err?.response?.data?.ErrorInfo) {
+                toast.error(err?.response?.data?.ErrorInfo, )
             } else if(err?.response?.data?.Message) {
-                alert(err?.response?.data?.Message)
-            }else{
-                alert('Oops! Something went wrong ! Please try again. ')
+                toast.error(err?.response?.data?.Message)
+            } else{
+                toast.error('Oops! Something went wrong ! Please try again. ')
             }
         }
     }

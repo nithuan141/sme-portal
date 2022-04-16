@@ -42,7 +42,7 @@ export const UserForm = ({handleChange, user}) => {
             <Input
                 id="password"
                 name="password"
-                placeholder="Default password"
+                placeholder="Password"
                 type="text"
                 value={password}
                 onChange={handleChange}

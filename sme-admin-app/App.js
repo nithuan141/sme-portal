@@ -4,6 +4,8 @@ import {
     UserPage, LoginPage, DashBoard,
     CoursePage, InvetsmentPage, ProfitPage
 } from './src/pages';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './src/components/Shared/Table.css'
 
 const App = () => {
@@ -15,6 +17,7 @@ const App = () => {
             <Route exact path="/course" component={CoursePage} />
             <Route exact path="/investment" component={InvetsmentPage} />
             <Route exact path="/profit" component={ProfitPage} />
+            <ToastContainer />
         </HashRouter>
     );
 }
