@@ -46,7 +46,7 @@ export const InvestmentTable = ({isWithdrawn = false}) => {
         <Row>
         <PaginationBar currentPage={currentPage} setPage={setPage} totalPage={Math.ceil(investments?.length/10)}/>
         <PayProfitModal  isOpen={showPayProfitModal} toggle={togglePayProfitModal} 
-            userId={selectedInvestement?.userId} investmentId={selectedInvestement?.id}/>
+            userId={selectedInvestement?.userId} investment={selectedInvestement}/>
         <ShowConfirmationModal toggle={toggleConfirmModal} isOpen={showConfirm} investment={selectedInvestement}/>
         </Row>
     </>

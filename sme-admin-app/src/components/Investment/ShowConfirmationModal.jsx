@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { Alert, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { updateInvestment } from '../../services/investment.service'
 
@@ -7,9 +8,9 @@ export const ShowConfirmationModal = ({ toggle, isOpen, investment}) => {
   const [error, setError] = useState(false)
 
   const onSave = () => {
-    investment && updateInvestment({...investment, status: 2}).then(res => {
+    investment && updateInvestment({...investment, returnedDate: new Date(), status: 2}).then(res => {
       if (res.status === 200 || res.status === 201) {
-        alert('Invetsment returend')
+        toast('Invetsment Returned')
         toggle()
       }
     }).catch(err => {

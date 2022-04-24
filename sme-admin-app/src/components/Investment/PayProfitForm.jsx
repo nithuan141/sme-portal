@@ -22,7 +22,7 @@ export const PayProfitForm = ({ handleChange, payProfit }) => {
         </FormGroup>
      
         <FormGroup>
-            <Label for="paidDate">Invested Date</Label>
+            <Label for="paidDate">Paid Date</Label>
             <Input
                 id="paidDate"
                 name="paidDate"

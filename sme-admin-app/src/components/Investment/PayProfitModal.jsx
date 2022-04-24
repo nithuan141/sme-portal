@@ -1,14 +1,17 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { Alert, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { savePayProfit } from '../../services/investment.service'
 import { PayProfitForm } from './PayProfitForm'
 
-export const PayProfitModal = ({ toggle, isOpen, userId, investmentId }) => {
+export const PayProfitModal = ({ toggle, isOpen, userId, investment }) => {
   const defaultPayProfit = {
-        paidDate: new Date(),
+        paidDate: new Date().toISOString().substring(0, 10),
         paidAmount: 0,
   }
+
+  const investmentId = investment?.investmentId
   
   const [payProfit, setPayProfit] = useState(defaultPayProfit)
   const [saved, setSaved] = useState(false)
@@ -31,6 +34,14 @@ export const PayProfitModal = ({ toggle, isOpen, userId, investmentId }) => {
     })
   }
 
+  useEffect(()=>{
+    if(investment) {
+      const {invetsmentType, profitPercentage, investedAmount, } = investment
+      const m = invetsmentType === 1 ? 1 : 3
+      const intrest = investedAmount * (profitPercentage/12/100)
+      setPayProfit({paidDate:new Date().toISOString().substring(0, 10), paidAmount: intrest.toFixed(2)})
+    }
+  }, [investment])
 
   return <Modal toggle={toggle} isOpen={isOpen}>
     <ModalHeader>{'Pay Profit'}</ModalHeader>
