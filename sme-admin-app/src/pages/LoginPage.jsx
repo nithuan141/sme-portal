@@ -13,7 +13,7 @@ import { authenticate, setLoggedInUser } from '../services/user.service';
 
 const LoginPage = (props) => {
 
-    const[user, setUser] = useState({email: 'admin@example.com', password: 'Admin@123'})
+    const[user, setUser] = useState({email: '', password: ''})
     const[isLoginError, setLoginError] = useState(false)
 
     const handleChange = (event) => {

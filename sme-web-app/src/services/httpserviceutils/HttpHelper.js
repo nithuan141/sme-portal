@@ -1,8 +1,9 @@
 
 import axios from 'axios';
+import { toast } from 'react-toastify'
 import { setInterceptor } from './AxiosInterceptor'
 
-export const API_BASE_URL = "http://44.201.81.76:8081/api"
+export const API_BASE_URL = "http://members.stockmarketexperts.in/api/api"
 
 class HttpHelper {
     // The axios instnace, new instance in the wrappe so that the default one using other areas will not have any impact.
@@ -99,11 +100,11 @@ class HttpHelper {
             throw err;
         } else {
             if(err?.response?.data?.ErrorInfo) {
-                alert(err?.response?.data?.ErrorInfo)
+                toast.error(err?.response?.data?.ErrorInfo)
             } else if(err?.response?.data?.Message) {
-                alert(err?.response?.data?.Message)
+                toast.error(err?.response?.data?.Message)
             }else{
-                alert('Oops! Something went wrong ! Please try again. ')
+                toast.error('Oops! Something went wrong ! Please try again. ')
             }
         }
     }

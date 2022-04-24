@@ -1,7 +1,9 @@
 import React from 'react'
 import { useContext } from 'react'
+import { toast } from 'react-toastify'
 import { InvestmentContext } from '../../contexts/Investment.Context'
 import { withdrawInvestment } from '../../services/investment.service'
+import { getCompoundIntrest, getIntrest } from './AccountSumary'
 
 export const InvestmentHistory = () => {
     const {investments, fetchInvestment} = useContext(InvestmentContext)
@@ -14,25 +16,32 @@ export const InvestmentHistory = () => {
             <th>Invested Date</th>
             <th>Amount</th>
             <th>Duration (Months)</th>
+            <th>Interest</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {investments && investments.map(item => <HistoryRow item={item} key={item.id}/>)}
+          {investments && investments.sort((a, b) => a.status - b.status).map(item => <HistoryRow item={item} key={item.id} fetchInvestment={fetchInvestment}/>)}
         </tbody>
       </table>
     </div>
   </div>
 }
 
-const HistoryRow = ({item}) => {
+const HistoryRow = ({item, fetchInvestment}) => {
+
+    const getItemInt = (dep) => {
+      if(dep.invetsmentType === 2) return getCompoundIntrest(dep)
+      return getIntrest(dep)
+    }
+
     const withdraw = () => {
         withdrawInvestment(item.id).then(res => {
-            alert("Your request to withdraw the investment has been raised, the team will contact you for further update.")
+            toast("Your request to withdraw the investment has been raised, the team will contact you for further update.")
             fetchInvestment()
         }).catch(err=>{
-            alert("Some error occured, please try again.")
+            toast.error("Some error occured, please try again.")
         })
     }
     return <tr>
@@ -48,6 +57,7 @@ const HistoryRow = ({item}) => {
       </span>
     </td>
     <td>{item.investmentMonths}</td>
+    <td>{(item.status === 0 || item.status === 1) ? getItemInt(item) : '-'}</td>
     <td>
       {getStatus(item.status)}
     </td>

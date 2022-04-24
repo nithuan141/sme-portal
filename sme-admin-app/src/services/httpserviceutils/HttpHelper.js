@@ -3,7 +3,7 @@ import axios from 'axios';
 import { setInterceptor } from './AxiosInterceptor'
 import { toast } from 'react-toastify'
 
-export const API_BASE_URL = "http://44.201.81.76:8081/api"
+export const API_BASE_URL = "http://members.stockmarketexperts.in/api/api"
 
 class HttpHelper {
     // The axios instnace, new instance in the wrappe so that the default one using other areas will not have any impact.
