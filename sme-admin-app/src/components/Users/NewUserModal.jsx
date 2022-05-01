@@ -22,7 +22,7 @@ export const NewUserModal = ({ toggle, isEdit, isOpen, selectedUser }) => {
   /**
    * Set default values when Toggle to close.
    */
-  const toggleCourseModal = () => {
+  const toggleUserModal = () => {
     setUser(defaultUser)
     setSaved(false)
     setError(false)
@@ -53,7 +53,7 @@ export const NewUserModal = ({ toggle, isEdit, isOpen, selectedUser }) => {
   }
 
 
-  return <Modal toggle={toggleCourseModal} isOpen={isOpen}>
+  return <Modal toggle={toggleUserModal} isOpen={isOpen}>
     <ModalHeader>{isEdit ? 'Edit User' : 'Add New User'}</ModalHeader>
 
     <ModalBody>
@@ -64,7 +64,7 @@ export const NewUserModal = ({ toggle, isEdit, isOpen, selectedUser }) => {
       <div>
         <Button color="primary" onClick={onSave}>Save User</Button>{' '}
         <Button onClick={() => { setUser(defaultUser) }}>Clear Form</Button>{' '}
-        <Button onClick={toggleCourseModal}>Close</Button>
+        <Button onClick={toggleUserModal}>Close</Button>
       </div>
       <div>
         {saved && <Alert color='success'>Saved succesfully</Alert>}
