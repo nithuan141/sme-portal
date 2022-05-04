@@ -19,6 +19,7 @@ export const InvestmentHistory = () => {
             <th>Interest</th>
             <th>Status</th>
             <th>Action</th>
+            <th>Returned Date</th>
           </tr>
         </thead>
         <tbody>
@@ -63,6 +64,9 @@ const HistoryRow = ({item, fetchInvestment}) => {
     </td>
     <td>
         {item.status === 0 &&  <button className="sr-btn db-btn" onClick={withdraw}>Withdraw</button>}
+    </td>
+    <td>
+      {item.status === 2 ? item.returnedDate : '-'}
     </td>
   </tr>
 }
