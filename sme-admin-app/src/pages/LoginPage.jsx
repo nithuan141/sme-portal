@@ -27,7 +27,7 @@ const LoginPage = (props) => {
 
     const login = () => {
         authenticate(user).then(response => {
-            if( response.status === 200) {
+            if( response.status === 200 && response?.data.role == "Admin") {
                 setLoginError(false)
                 setLoggedInUser(response.data)
                 history.push('/home')
